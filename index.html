@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bookish — Where Every Book Lover Connects and Collects</title>
+  <meta name="description" content="Bookish: discover books, join a book club, come to an author event and shop your next favourite read." />
+  <meta name="theme-color" content="#F8F7F3" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lexend:wght@400;500;600&family=Lilita+One&family=Lobster&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="assets/covers/intermezzo.webp" />
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    // Hide the hero until the intro timeline takes over (released after 3s regardless)
+    if (matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+      document.documentElement.classList.add("intro");
+      setTimeout(() => document.documentElement.classList.remove("intro"), 3000);
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="page">
+
+    <!-- ============ HEADER ============ -->
+    <header class="header">
+      <a href="#top" class="logo" aria-label="Bookish home">
+        <svg viewBox="0 0 120 72" aria-hidden="true">
+          <g fill="#F26A1B">
+            <circle cx="30" cy="34" r="19" /><circle cx="54" cy="27" r="21" />
+            <circle cx="80" cy="30" r="20" /><circle cx="98" cy="40" r="14" />
+            <circle cx="40" cy="46" r="17" /><circle cx="70" cy="46" r="18" />
+            <circle cx="17" cy="42" r="11" /><circle cx="46" cy="64" r="4" />
+            <circle cx="79" cy="66" r="3" /><circle cx="102" cy="58" r="3.2" />
+            <circle cx="12" cy="56" r="2.6" />
+          </g>
+          <text x="58" y="45" text-anchor="middle" transform="rotate(-7 58 40)">BOOKISH</text>
+        </svg>
+      </a>
+
+      <nav class="nav" id="mainNav" aria-label="Main">
+        <a href="#top" class="nav__link is-active">Home</a>
+        <div class="dropdown">
+          <button class="nav__link dropdown__toggle" aria-expanded="false" aria-haspopup="true">
+            Community
+            <svg viewBox="0 0 24 24" class="chev" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+          </button>
+          <ul class="dropdown__menu" role="menu">
+            <li><a href="#clubs" role="menuitem">Book Clubs</a></li>
+            <li><a href="#events" role="menuitem">Author Events</a></li>
+            <li><a href="#reviews" role="menuitem">Reader Reviews</a></li>
+          </ul>
+        </div>
+        <a href="#categories" class="nav__link">Category</a>
+        <a href="#visit" class="nav__link">About Us</a>
+      </nav>
+
+      <form class="search" role="search" id="searchForm">
+        <svg viewBox="0 0 24 24" class="search__icon" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
+        <input type="search" id="searchInput" placeholder="Search by title or author" aria-label="Search by title or author" autocomplete="off" />
+        <button type="button" class="search__filter" id="filterBtn" aria-label="Filters" aria-expanded="false" aria-controls="filterPanel">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9" /><circle cx="15" cy="7" r="2" /><circle cx="9" cy="17" r="2" /></svg>
+        </button>
+
+        <div class="filter-panel" id="filterPanel" hidden>
+          <fieldset>
+            <legend>Format</legend>
+            <label><input type="radio" name="format" value="all" checked /> All</label>
+            <label><input type="radio" name="format" value="Paperback" /> Paperback</label>
+            <label><input type="radio" name="format" value="Hardcover" /> Hardcover</label>
+          </fieldset>
+          <fieldset>
+            <legend>Sort by</legend>
+            <label><input type="radio" name="sort" value="featured" checked /> Featured</label>
+            <label><input type="radio" name="sort" value="price" /> Price: low to high</label>
+            <label><input type="radio" name="sort" value="rating" /> Top rated</label>
+            <label><input type="radio" name="sort" value="new" /> Newest</label>
+          </fieldset>
+        </div>
+      </form>
+
+      <button type="button" class="cart" id="cartBtn" aria-label="Open cart" aria-controls="cartDrawer" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2.2l2.3 10.2a1.5 1.5 0 0 0 1.5 1.2h8.4a1.5 1.5 0 0 0 1.5-1.1L21 8H6.1" /><path d="M9 8.5v4M12.5 8.5v4M16 8.5v4" /><circle cx="9.5" cy="19.5" r="1.4" /><circle cx="17" cy="19.5" r="1.4" /></svg>
+        <span class="cart__count" id="cartCount" hidden>0</span>
+      </button>
+
+      <a href="#" class="btn btn--login">Login</a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <main id="main">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top">
+      <div class="hero__content">
+        <p class="hero__eyebrow">Your bookshelf is expanding...</p>
+        <h1 class="hero__title">
+          <span class="script">Bookish</span> - Where Every
+          Bo<svg class="book-stack" viewBox="0 0 40 30" aria-hidden="true">
+            <rect x="3" y="21" width="32" height="7" rx="1.5" fill="#86C3D6" />
+            <rect x="3" y="23.2" width="32" height="1.6" fill="#fff" opacity=".7" />
+            <rect x="6" y="13.5" width="29" height="7" rx="1.5" fill="#F2A86B" transform="rotate(-4 20 17)" />
+            <rect x="6" y="15.7" width="29" height="1.6" fill="#fff" opacity=".7" transform="rotate(-4 20 17)" />
+            <rect x="4" y="6" width="28" height="7" rx="1.5" fill="#86B97C" transform="rotate(3 18 9)" />
+            <rect x="4" y="8.2" width="28" height="1.6" fill="#fff" opacity=".7" transform="rotate(3 18 9)" />
+          </svg>k Lovers <span class="script">Connect</span>
+          and <span class="script">Collect</span>
+        </h1>
+        <p class="hero__text">
+          Unbind the extraordinary magic of books, build reader community,
+          and purchase at your heart's desire. Your next favourite story is
+          a single click away.
+        </p>
+        <a href="#trending" class="btn btn--primary">Get Started</a>
+      </div>
+
+      <div class="hero__collage" aria-label="Featured books">
+        <button class="tile" data-book="the-women"><img src="assets/covers/the-women.webp" alt="The Women by Kristin Hannah" width="333" height="500" /></button>
+        <button class="tile" data-book="babel"><img src="assets/covers/babel.webp" alt="Babel by R. F. Kuang" width="330" height="500" /></button>
+        <button class="tile" data-book="night-circus"><img src="assets/covers/night-circus.webp" alt="The Night Circus by Erin Morgenstern" width="326" height="500" /></button>
+        <button class="tile" data-book="piranesi"><img src="assets/covers/piranesi.webp" alt="Piranesi by Susanna Clarke" width="353" height="500" /></button>
+
+        <button class="tile" data-book="come-and-get-it"><img src="assets/covers/come-and-get-it.webp" alt="Come and Get It by Kiley Reid" width="145" height="219" /></button>
+        <button class="tile" data-book="intermezzo"><img src="assets/covers/intermezzo.webp" alt="Intermezzo by Sally Rooney" width="312" height="500" fetchpriority="high" /></button>
+        <button class="tile" data-book="tomorrow-x3"><img src="assets/covers/tomorrow-x3.webp" alt="Tomorrow, and Tomorrow, and Tomorrow by Gabrielle Zevin" width="331" height="500" /></button>
+        <button class="tile" data-book="water-moon"><img src="assets/covers/water-moon.webp" alt="Water Moon by Samantha Sotto Yambao" width="333" height="500" /></button>
+
+        <button class="tile" data-book="wild-edge-of-sorrow"><img src="assets/covers/wild-edge-of-sorrow.webp" alt="The Wild Edge of Sorrow by Francis Weller" width="301" height="500" /></button>
+        <button class="tile" data-book="gate-of-the-feral-gods"><img src="assets/covers/gate-of-the-feral-gods.webp" alt="The Gate of the Feral Gods by Matt Dinniman" width="331" height="500" /></button>
+        <button class="tile" data-book="james"><img src="assets/covers/james.webp" alt="James by Percival Everett" width="325" height="500" /></button>
+        <button class="tile" data-book="maggie"><img src="assets/covers/maggie.webp" alt="Maggie; or, A Man and a Woman Walk Into a Bar by Katie Yee" width="256" height="385" /></button>
+      </div>
+    </section>
+
+    <!-- ============ TRENDING ============ -->
+    <section class="section section--flush" id="trending" aria-labelledby="trendingTitle">
+      <div class="section__head">
+        <h2 id="trendingTitle">Trending This Week</h2>
+        <a href="#browse" class="more">See all
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+        </a>
+      </div>
+    </section>
+
+    <div class="carousel">
+      <button class="carousel__arrow carousel__arrow--prev" id="prevBtn" aria-label="Previous books">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6 8 12l7 6z" /></svg>
+      </button>
+      <div class="carousel__track" id="track" tabindex="0" aria-label="Trending books"></div>
+      <button class="carousel__arrow carousel__arrow--next" id="nextBtn" aria-label="Next books">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 7 6-7 6z" /></svg>
+      </button>
+    </div>
+
+    <!-- ============ BOOK OF THE MONTH ============ -->
+    <section class="botm" aria-labelledby="botmTitle">
+      <div class="botm__art">
+        <button class="botm__cover" data-book="james" aria-label="Quick view: James">
+          <img src="assets/covers/james.webp" alt="" width="325" height="500" loading="lazy" />
+        </button>
+        <span class="botm__badge" aria-hidden="true"><b>Pulitzer</b>Prize<br />2025</span>
+      </div>
+      <div class="botm__body">
+        <p class="botm__kicker">October's Book of the Month</p>
+        <h2 id="botmTitle" class="botm__title">James</h2>
+        <p class="botm__author">Percival Everett</p>
+        <p class="botm__text">
+          You know this river. You know Huck. You have never heard Jim like this.
+          Everett hands the raft to the man who was always on it, and the result
+          is sly, harrowing and genuinely funny — a book our whole staff pressed
+          into customers' hands this year.
+        </p>
+        <ul class="botm__facts">
+          <li><strong>Pulitzer Prize</strong> for Fiction, 2025</li>
+          <li><strong>National Book Award</strong> for Fiction, 2024</li>
+          <li><strong>Hardcover</strong>, 320 pages</li>
+        </ul>
+        <div class="botm__buy">
+          <p class="botm__price">$28.00</p>
+          <button class="btn btn--cart btn--lg" data-add="james">Add To Cart</button>
+          <a href="#clubs" class="botm__club">Discuss it with the Thursday Novel Club</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CATEGORIES ============ -->
+    <section class="section" id="categories" aria-labelledby="catTitle">
+      <div class="section__head">
+        <h2 id="catTitle">Popular Categories</h2>
+        <a href="#browse" class="more">Browse all
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+        </a>
+      </div>
+      <div class="categories" id="categoryGrid"></div>
+    </section>
+
+    <!-- ============ BROWSE ============ -->
+    <section class="section browse" id="browse" aria-labelledby="browseTitle">
+      <div class="section__head">
+        <h2 id="browseTitle">Browse the Shelves</h2>
+        <p class="browse__count" id="browseCount" aria-live="polite"></p>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Filter by genre" id="genreTabs"></div>
+      <div class="shelf" id="shelf"></div>
+      <div class="shelf__more" id="shelfMore" hidden>
+        <button class="btn btn--ghost" id="showAll"></button>
+      </div>
+      <div class="shelf__empty" id="shelfEmpty" hidden>
+        <p>No books match “<span id="emptyQuery"></span>”.</p>
+        <button class="btn btn--ghost" id="clearFilters">Clear search and filters</button>
+      </div>
+    </section>
+
+    <!-- ============ COMMUNITY: CLUBS ============ -->
+    <section class="section community" id="clubs" aria-labelledby="clubsTitle">
+      <div class="section__head">
+        <h2 id="clubsTitle">Book Clubs</h2>
+        <p class="section__note">Free to join. Meet in the shop or online.</p>
+      </div>
+
+      <div class="clubs">
+        <article class="club">
+          <div class="club__photo">
+            <img src="assets/photos/club-table.webp" alt="Readers around a table with open books" loading="lazy" width="1400" height="1050" />
+          </div>
+          <div class="club__body">
+            <h3>Thursday Novel Club</h3>
+            <p>Literary fiction, one book a month, long arguments about endings. First Thursday, 7pm.</p>
+            <div class="club__now">
+              <img src="assets/covers/james.webp" alt="" width="325" height="500" loading="lazy" />
+              <p><span>Reading now</span>James — Percival Everett</p>
+            </div>
+            <div class="club__foot">
+              <p class="club__members"><b data-members>148</b> members</p>
+              <button class="btn btn--join" aria-pressed="false">Join club</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="club">
+          <div class="club__photo">
+            <img src="assets/photos/club-couch.webp" alt="Three friends on a sofa laughing over a book" loading="lazy" width="1400" height="933" />
+          </div>
+          <div class="club__body">
+            <h3>Swoon Society</h3>
+            <p>Romance and rom-coms, snacks mandatory. Every other Sunday afternoon in the reading room.</p>
+            <div class="club__now">
+              <img src="assets/covers/funny-story.webp" alt="" width="295" height="445" loading="lazy" />
+              <p><span>Reading now</span>Funny Story — Emily Henry</p>
+            </div>
+            <div class="club__foot">
+              <p class="club__members"><b data-members>231</b> members</p>
+              <button class="btn btn--join" aria-pressed="false">Join club</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="club">
+          <div class="club__photo">
+            <img src="assets/photos/seniors-circle.webp" alt="Two women reading in armchairs" loading="lazy" width="1400" height="941" />
+          </div>
+          <div class="club__body">
+            <h3>Golden Pages Circle</h3>
+            <p>A slower-paced club with large-print copies on hand. Tuesday mornings, tea and biscuits included.</p>
+            <div class="club__now">
+              <img src="assets/covers/remarkably-bright-creatures.webp" alt="" width="326" height="500" loading="lazy" />
+              <p><span>Reading now</span>Remarkably Bright Creatures — Shelby Van Pelt</p>
+            </div>
+            <div class="club__foot">
+              <p class="club__members"><b data-members>64</b> members</p>
+              <button class="btn btn--join" aria-pressed="false">Join club</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ COMMUNITY: EVENTS ============ -->
+    <section class="section events-wrap" id="events" aria-labelledby="eventsTitle">
+      <div class="events">
+        <div class="events__feature">
+          <img src="assets/photos/signing.webp" alt="An author signing a book for a reader" loading="lazy" width="1050" height="1400" />
+        </div>
+        <div class="events__list">
+          <div class="section__head">
+            <h2 id="eventsTitle">Upcoming Events</h2>
+          </div>
+          <ol class="event-list">
+            <li class="event">
+              <time class="event__date" datetime="2026-10-08"><b>08</b>Oct</time>
+              <div class="event__info">
+                <h3>Silent Reading Night</h3>
+                <p>Bring whatever you're reading. One hour of quiet, then wine and conversation. Thu, 7:00pm</p>
+              </div>
+              <button class="btn btn--rsvp" aria-pressed="false">RSVP</button>
+            </li>
+            <li class="event">
+              <time class="event__date" datetime="2026-10-17"><b>17</b>Oct</time>
+              <div class="event__info">
+                <h3>Debut Authors Signing Afternoon</h3>
+                <p>Five first-time novelists from the region read, chat and sign. Sat, 2:00pm</p>
+              </div>
+              <button class="btn btn--rsvp" aria-pressed="false">RSVP</button>
+            </li>
+            <li class="event">
+              <time class="event__date" datetime="2026-10-21"><b>21</b>Oct</time>
+              <div class="event__info">
+                <h3><i>James</i> — open club discussion</h3>
+                <p>Our Book of the Month, discussed by anyone who wants in. Copies 15% off on the night. Wed, 6:30pm</p>
+              </div>
+              <button class="btn btn--rsvp" aria-pressed="false">RSVP</button>
+            </li>
+            <li class="event">
+              <time class="event__date" datetime="2026-10-31"><b>31</b>Oct</time>
+              <div class="event__info">
+                <h3>Spooky Stories by Candlelight</h3>
+                <p>Ghost stories read aloud for grown-ups. Costumes encouraged, not required. Sat, 8:00pm</p>
+              </div>
+              <button class="btn btn--rsvp" aria-pressed="false">RSVP</button>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ REVIEWS ============ -->
+    <section class="section" id="reviews" aria-labelledby="reviewsTitle">
+      <div class="section__head">
+        <h2 id="reviewsTitle">What Readers Are Saying</h2>
+      </div>
+      <div class="reviews">
+        <figure class="review">
+          <button class="review__book" data-book="project-hail-mary" aria-label="Quick view: Project Hail Mary">
+            <img src="assets/covers/project-hail-mary.webp" alt="" width="325" height="500" loading="lazy" />
+          </button>
+          <blockquote>I bought it because the shop cat was sleeping on the stack. Finished it in two days and cried over an alien. No regrets.</blockquote>
+          <figcaption><b>Priya N.</b> on <i>Project Hail Mary</i></figcaption>
+        </figure>
+        <figure class="review">
+          <button class="review__book" data-book="braiding-sweetgrass" aria-label="Quick view: Braiding Sweetgrass">
+            <img src="assets/covers/braiding-sweetgrass.webp" alt="" width="230" height="356" loading="lazy" />
+          </button>
+          <blockquote>A staff recommendation that changed how I walk through my own garden. I've since bought four copies as gifts.</blockquote>
+          <figcaption><b>Tomás R.</b> on <i>Braiding Sweetgrass</i></figcaption>
+        </figure>
+        <figure class="review">
+          <button class="review__book" data-book="thursday-murder-club" aria-label="Quick view: The Thursday Murder Club">
+            <img src="assets/covers/thursday-murder-club.webp" alt="" width="331" height="500" loading="lazy" />
+          </button>
+          <blockquote>Our Golden Pages Circle read this together and we've now started solving the neighbourhood's mysteries. Mostly missing post.</blockquote>
+          <figcaption><b>Margaret H.</b> on <i>The Thursday Murder Club</i></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ VISIT ============ -->
+    <section class="visit" id="visit" aria-labelledby="visitTitle">
+      <div class="visit__photos">
+        <img class="visit__main" src="assets/photos/store-interior.webp" alt="Inside a bright bookshop with tall shelves and an arched window" loading="lazy" width="1400" height="933" />
+        <img class="visit__inset" src="assets/photos/store-cozy.webp" alt="A cosy reading corner lined with bookshelves" loading="lazy" width="933" height="1400" />
+      </div>
+      <div class="visit__body">
+        <h2 id="visitTitle">Come Browse in Person</h2>
+        <p>
+          Bookish started as a single shelf in a café. Today it's two floors of
+          new and second-hand books, a reading room with the best armchairs in
+          town, and a team who will happily talk your ear off about what to read next.
+        </p>
+        <dl class="hours">
+          <div><dt>Mon – Fri</dt><dd>9:00am – 8:00pm</dd></div>
+          <div><dt>Saturday</dt><dd>10:00am – 9:00pm</dd></div>
+          <div><dt>Sunday</dt><dd>11:00am – 6:00pm</dd></div>
+        </dl>
+        <address>
+          214 Larkin Street, Riverside<br />
+          <a href="tel:+15550142214">(555) 014-2214</a> · <a href="mailto:hello@bookish.example">hello@bookish.example</a>
+        </address>
+      </div>
+    </section>
+
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a href="#top" class="logo" aria-label="Bookish home">
+            <svg viewBox="0 0 120 72" aria-hidden="true">
+              <g fill="#F26A1B">
+                <circle cx="30" cy="34" r="19" /><circle cx="54" cy="27" r="21" />
+                <circle cx="80" cy="30" r="20" /><circle cx="98" cy="40" r="14" />
+                <circle cx="40" cy="46" r="17" /><circle cx="70" cy="46" r="18" />
+                <circle cx="17" cy="42" r="11" /><circle cx="46" cy="64" r="4" />
+                <circle cx="79" cy="66" r="3" /><circle cx="102" cy="58" r="3.2" />
+                <circle cx="12" cy="56" r="2.6" />
+              </g>
+              <text x="58" y="45" text-anchor="middle" transform="rotate(-7 58 40)">BOOKISH</text>
+            </svg>
+          </a>
+          <p>New releases, staff picks and event invites — one email a week, never more.</p>
+          <form class="newsletter" id="newsletterForm">
+            <input type="email" placeholder="Your email address" aria-label="Email address" required />
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+        <div>
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="#trending">Trending</a></li>
+            <li><a href="#browse">All Books</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="#">Gift Cards</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Community</h4>
+          <ul>
+            <li><a href="#clubs">Book Clubs</a></li>
+            <li><a href="#events">Author Events</a></li>
+            <li><a href="#reviews">Reader Reviews</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#visit">About Us</a></li>
+            <li><a href="#">Shipping &amp; Returns</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="mailto:hello@bookish.example">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <span>&copy; <span id="year">2026</span> Bookish. All rights reserved.</span>
+        <span>Covers via <a href="https://openlibrary.org" rel="noopener">Open Library</a> · Photos via <a href="https://unsplash.com" rel="noopener">Unsplash</a></span>
+        <span><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms of Service</a></span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ============ CART DRAWER ============ -->
+  <div class="scrim" id="scrim" hidden></div>
+  <aside class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true" inert>
+    <div class="drawer__head">
+      <h2 id="cartTitle">Your Cart</h2>
+      <button class="icon-btn" id="cartClose" aria-label="Close cart">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+      </button>
+    </div>
+    <div class="ship" id="shipBar">
+      <p id="shipMsg"></p>
+      <div class="ship__track"><span id="shipFill"></span></div>
+    </div>
+    <ul class="drawer__items" id="cartItems"></ul>
+    <div class="drawer__empty" id="cartEmpty">
+      <p>Your cart is empty.</p>
+      <a href="#trending" class="btn btn--cart" id="cartBrowse">Find something to read</a>
+    </div>
+    <div class="drawer__foot" id="cartFoot">
+      <p class="drawer__total"><span>Subtotal</span><b id="cartSubtotal">$0.00</b></p>
+      <button class="btn btn--primary btn--block" id="checkoutBtn">Checkout</button>
+    </div>
+  </aside>
+
+  <!-- ============ QUICK VIEW ============ -->
+  <dialog class="qv" id="quickView" aria-labelledby="qvTitle">
+    <button class="icon-btn qv__close" id="qvClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+    </button>
+    <div class="qv__cover"><img id="qvImg" src="" alt="" /></div>
+    <div class="qv__body">
+      <p class="qv__genre" id="qvGenre"></p>
+      <h2 id="qvTitle"></h2>
+      <p class="qv__author" id="qvAuthor"></p>
+      <p class="book__rating" id="qvRating"></p>
+      <p class="qv__blurb" id="qvBlurb"></p>
+      <p class="qv__meta" id="qvMeta"></p>
+      <div class="qv__buy">
+        <p class="qv__price" id="qvPrice"></p>
+        <button class="btn btn--cart btn--lg" id="qvAdd">Add To Cart</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js" defer></script>
+  <script src="books.js" defer></script>
+  <script src="script.js" defer></script>
+</body>
+</html>

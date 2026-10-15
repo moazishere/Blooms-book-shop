@@ -1,0 +1,590 @@
+{
+ "intermezzo": {
+  "title": "Intermezzo",
+  "author": "Sally Rooney",
+  "year": 2024,
+  "pages": 454,
+  "rating": 3.38,
+  "ratings": 8,
+  "cover_i": 14836043,
+  "key": "/works/OL37949460W",
+  "size": [
+   312,
+   500
+  ]
+ },
+ "come-and-get-it": {
+  "title": "Come and Get It",
+  "author": "Kiley Reid",
+  "year": 2024,
+  "pages": 384,
+  "rating": 5.0,
+  "ratings": 1,
+  "cover_i": 14571761,
+  "key": "/works/OL37537317W",
+  "size": [
+   145,
+   219
+  ]
+ },
+ "water-moon": {
+  "title": "Water Moon",
+  "author": "Samantha Sotto Yambao",
+  "year": 2025,
+  "pages": 384,
+  "rating": 4.0,
+  "ratings": 1,
+  "cover_i": 15204727,
+  "key": "/works/OL42410303W",
+  "size": [
+   333,
+   500
+  ]
+ },
+ "wild-edge-of-sorrow": {
+  "title": "The Wild Edge of Sorrow",
+  "author": "Francis Weller",
+  "year": 2015,
+  "pages": 200,
+  "rating": null,
+  "ratings": null,
+  "cover_i": 10994585,
+  "key": "/works/OL20017318W",
+  "size": [
+   301,
+   500
+  ]
+ },
+ "gate-of-the-feral-gods": {
+  "title": "The Gate of the Feral Gods",
+  "author": "Matt Dinniman",
+  "year": 2021,
+  "pages": 608,
+  "rating": 5.0,
+  "ratings": 1,
+  "cover_i": 15258911,
+  "key": "/works/OL24848267W",
+  "size": [
+   331,
+   500
+  ]
+ },
+ "maggie": {
+  "title": "Maggie",
+  "author": "Katie Yee",
+  "year": 2025,
+  "pages": 208,
+  "rating": 4.0,
+  "ratings": 1,
+  "cover_i": 15100077,
+  "key": "/works/OL42434532W",
+  "size": [
+   256,
+   385
+  ]
+ },
+ "cosmic-love": {
+  "title": "Cosmic Love at the Multiverse Hair Salon",
+  "author": "Annie Mare",
+  "year": 2025,
+  "pages": 384,
+  "rating": null,
+  "ratings": null,
+  "cover_i": 15121645,
+  "key": "/works/OL42538398W",
+  "size": [
+   292,
+   450
+  ]
+ },
+ "love-is-a-war-song": {
+  "title": "Love Is a War Song",
+  "author": "Danica Nava",
+  "year": 2025,
+  "pages": 336,
+  "rating": 4.0,
+  "ratings": 1,
+  "cover_i": 15106075,
+  "key": "/works/OL42444845W",
+  "size": [
+   141,
+   218
+  ]
+ },
+ "james": {
+  "title": "James",
+  "author": "Percival Everett",
+  "year": 2024,
+  "pages": 320,
+  "rating": 4.1,
+  "ratings": 10,
+  "cover_i": 15095853,
+  "key": "/works/OL36506504W",
+  "size": [
+   325,
+   500
+  ]
+ },
+ "the-women": {
+  "title": "The Women",
+  "author": "Kristin Hannah",
+  "year": 2024,
+  "pages": 480,
+  "rating": 4.0,
+  "ratings": 5,
+  "cover_i": 14550040,
+  "key": "/works/OL37247638W",
+  "size": [
+   333,
+   500
+  ]
+ },
+ "fourth-wing": {
+  "title": "Fourth Wing",
+  "author": "Rebecca Yarros",
+  "year": 2023,
+  "pages": 518,
+  "rating": 4.26,
+  "ratings": 100,
+  "cover_i": 14407898,
+  "key": "/works/OL29226517W",
+  "size": [
+   333,
+   500
+  ]
+ },
+ "onyx-storm": {
+  "title": "Onyx Storm",
+  "author": "Rebecca Yarros",
+  "year": 2025,
+  "pages": null,
+  "rating": null,
+  "ratings": null,
+  "cover_i": 15232778,
+  "key": "/works/OL42434087W",
+  "size": [
+   258,
+   387
+  ]
+ },
+ "heaven-earth-grocery": {
+  "title": "The Heaven & Earth Grocery Store",
+  "author": "James McBride",
+  "year": 2023,
+  "pages": 561,
+  "rating": 4.6,
+  "ratings": 5,
+  "cover_i": 13161648,
+  "key": "/works/OL34059667W",
+  "size": [
+   331,
+   500
+  ]
+ },
+ "tomorrow-x3": {
+  "title": "Tomorrow, and Tomorrow, and Tomorrow",
+  "author": "Gabrielle Zevin",
+  "year": 2022,
+  "pages": 460,
+  "rating": 4.23,
+  "ratings": 26,
+  "cover_i": 12859975,
+  "key": "/works/OL26004554W",
+  "size": [
+   331,
+   500
+  ]
+ },
+ "demon-copperhead": {
+  "title": "Demon Copperhead",
+  "author": "Barbara Kingsolver",
+  "year": 2022,
+  "pages": 560,
+  "rating": 4.57,
+  "ratings": 7,
+  "cover_i": 13141227,
+  "key": "/works/OL27052926W",
+  "size": [
+   274,
+   416
+  ]
+ },
+ "thursday-murder-club": {
+  "title": "The Thursday Murder Club",
+  "author": "Richard Osman",
+  "year": 2020,
+  "pages": 382,
+  "rating": 3.63,
+  "ratings": 19,
+  "cover_i": 10201431,
+  "key": "/works/OL20878311W",
+  "size": [
+   331,
+   500
+  ]
+ },
+ "silent-patient": {
+  "title": "The Silent Patient",
+  "author": "Alex Michaelides",
+  "year": 2018,
+  "pages": 352,
+  "rating": 4.04,
+  "ratings": 206,
+  "cover_i": 9407338,
+  "key": "/works/OL19096402W",
+  "size": [
+   331,
+   500
+  ]
+ },
+ "god-of-the-woods": {
+  "title": "The God of the Woods",
+  "author": "Liz Moore",
+  "year": 2024,
+  "pages": 438,
+  "rating": 3.67,
+  "ratings": 3,
+  "cover_i": 14645734,
+  "key": "/works/OL37827517W",
+  "size": [
+   331,
+   500
+  ]
+ },
+ "project-hail-mary": {
+  "title": "Project Hail Mary",
+  "author": "Andy Weir",
+  "year": 2021,
+  "pages": 496,
+  "rating": 4.51,
+  "ratings": 180,
+  "cover_i": 11200092,
+  "key": "/works/OL21745884W",
+  "size": [
+   325,
+   500
+  ]
+ },
+ "babel": {
+  "title": "Babel",
+  "author": "R. F. Kuang",
+  "year": 2022,
+  "pages": 577,
+  "rating": 4.03,
+  "ratings": 29,
+  "cover_i": 14831786,
+  "key": "/works/OL26443093W",
+  "size": [
+   330,
+   500
+  ]
+ },
+ "yellowface": {
+  "title": "Yellowface",
+  "author": "R. F. Kuang",
+  "year": 2023,
+  "pages": 352,
+  "rating": 3.88,
+  "ratings": 17,
+  "cover_i": 13195421,
+  "key": "/works/OL29050559W",
+  "size": [
+   332,
+   500
+  ]
+ },
+ "piranesi": {
+  "title": "Piranesi",
+  "author": "Susanna Clarke",
+  "year": 2020,
+  "pages": 272,
+  "rating": 4.33,
+  "ratings": 63,
+  "cover_i": 10226290,
+  "key": "/works/OL20893680W",
+  "size": [
+   353,
+   500
+  ]
+ },
+ "circe": {
+  "title": "Circe",
+  "author": "Madeline Miller",
+  "year": 2018,
+  "pages": 404,
+  "rating": 4.16,
+  "ratings": 109,
+  "cover_i": 8739376,
+  "key": "/works/OL18012166W",
+  "size": [
+   315,
+   475
+  ]
+ },
+ "funny-story": {
+  "title": "Funny Story",
+  "author": "Emily Henry",
+  "year": 2024,
+  "pages": 400,
+  "rating": 4.12,
+  "ratings": 8,
+  "cover_i": 14625690,
+  "key": "/works/OL37575890W",
+  "size": [
+   295,
+   445
+  ]
+ },
+ "evelyn-hugo": {
+  "title": "The Seven Husbands of Evelyn Hugo",
+  "author": "Taylor Jenkins Reid",
+  "year": 2017,
+  "pages": 400,
+  "rating": 4.12,
+  "ratings": 186,
+  "cover_i": 8354226,
+  "key": "/works/OL18203673W",
+  "size": [
+   316,
+   475
+  ]
+ },
+ "beach-read": {
+  "title": "Beach Read",
+  "author": "Emily Henry",
+  "year": 2020,
+  "pages": 376,
+  "rating": 3.71,
+  "ratings": 31,
+  "cover_i": 9426296,
+  "key": "/works/OL20734329W",
+  "size": [
+   333,
+   500
+  ]
+ },
+ "orbital": {
+  "title": "Orbital",
+  "author": "Samantha Harvey",
+  "year": 2023,
+  "pages": 144,
+  "rating": 3.0,
+  "ratings": 1,
+  "cover_i": 14541972,
+  "key": "/works/OL35708581W",
+  "size": [
+   320,
+   500
+  ]
+ },
+ "atomic-habits": {
+  "title": "Atomic Habits",
+  "author": "James Clear",
+  "year": 2016,
+  "pages": 323,
+  "rating": 3.97,
+  "ratings": 1437,
+  "cover_i": 12539702,
+  "key": "/works/OL17930368W",
+  "size": [
+   369,
+   500
+  ]
+ },
+ "anxious-generation": {
+  "title": "The Anxious Generation",
+  "author": "Jonathan Haidt",
+  "year": 2024,
+  "pages": 395,
+  "rating": 3.64,
+  "ratings": 14,
+  "cover_i": 15104803,
+  "key": "/works/OL37575384W",
+  "size": [
+   329,
+   500
+  ]
+ },
+ "braiding-sweetgrass": {
+  "title": "Braiding Sweetgrass",
+  "author": "Robin Wall Kimmerer",
+  "year": 2013,
+  "pages": 409,
+  "rating": 4.62,
+  "ratings": 13,
+  "cover_i": 7281575,
+  "key": "/works/OL16819897W",
+  "size": [
+   230,
+   356
+  ]
+ },
+ "crying-in-h-mart": {
+  "title": "Crying in H Mart",
+  "author": "Michelle Zauner",
+  "year": 2020,
+  "pages": 256,
+  "rating": 3.85,
+  "ratings": 26,
+  "cover_i": 10462708,
+  "key": "/works/OL22448002W",
+  "size": [
+   338,
+   500
+  ]
+ },
+ "educated": {
+  "title": "Educated",
+  "author": "Tara Westover",
+  "year": 2018,
+  "pages": 384,
+  "rating": 4.45,
+  "ratings": 22,
+  "cover_i": 8314077,
+  "key": "/works/OL18139176W",
+  "size": [
+   329,
+   500
+  ]
+ },
+ "sun-and-her-flowers": {
+  "title": "The Sun and Her Flowers",
+  "author": "Rupi Kaur",
+  "year": 2017,
+  "pages": 256,
+  "rating": 4.04,
+  "ratings": 45,
+  "cover_i": 8084615,
+  "key": "/works/OL17800586W",
+  "size": [
+   322,
+   500
+  ]
+ },
+ "devotions": {
+  "title": "Devotions",
+  "author": "Mary Oliver",
+  "year": 2017,
+  "pages": 455,
+  "rating": 5.0,
+  "ratings": 2,
+  "cover_i": 10326261,
+  "key": "/works/OL19720501W",
+  "size": [
+   326,
+   500
+  ]
+ },
+ "time-is-a-mother": {
+  "title": "Time Is a Mother",
+  "author": "Ocean Vuong",
+  "year": 2022,
+  "pages": 88,
+  "rating": 4.5,
+  "ratings": 2,
+  "cover_i": 11465692,
+  "key": "/works/OL24732105W",
+  "size": [
+   311,
+   500
+  ]
+ },
+ "the-hurting-kind": {
+  "title": "The Hurting Kind",
+  "author": "Ada Limón",
+  "year": 2022,
+  "pages": null,
+  "rating": null,
+  "ratings": null,
+  "cover_i": 14845158,
+  "key": "/works/OL42577602W",
+  "size": [
+   353,
+   500
+  ]
+ },
+ "remarkably-bright-creatures": {
+  "title": "Remarkably Bright Creatures",
+  "author": "Shelby Van Pelt",
+  "year": 2022,
+  "pages": 368,
+  "rating": 3.89,
+  "ratings": 18,
+  "cover_i": 14809662,
+  "key": "/works/OL25382083W",
+  "size": [
+   326,
+   500
+  ]
+ },
+ "lessons-in-chemistry": {
+  "title": "Lessons in Chemistry",
+  "author": "Bonnie Garmus",
+  "year": 2022,
+  "pages": 464,
+  "rating": 4.0,
+  "ratings": 9,
+  "cover_i": 12725772,
+  "key": "/works/OL25344431W",
+  "size": [
+   331,
+   499
+  ]
+ },
+ "holly": {
+  "title": "Holly",
+  "author": "Stephen King",
+  "year": 2023,
+  "pages": 449,
+  "rating": 3.43,
+  "ratings": 7,
+  "cover_i": 14655773,
+  "key": "/works/OL34057778W",
+  "size": [
+   285,
+   500
+  ]
+ },
+ "gone-girl": {
+  "title": "Gone Girl",
+  "author": "Gillian Flynn",
+  "year": 2011,
+  "pages": 475,
+  "rating": 3.72,
+  "ratings": 72,
+  "cover_i": 8490146,
+  "key": "/works/OL16239762W",
+  "size": [
+   343,
+   500
+  ]
+ },
+ "night-circus": {
+  "title": "The Night Circus",
+  "author": "Erin Morgenstern",
+  "year": 2011,
+  "pages": 512,
+  "rating": 4.09,
+  "ratings": 68,
+  "cover_i": 8773134,
+  "key": "/works/OL16086747W",
+  "size": [
+   326,
+   500
+  ]
+ },
+ "pachinko": {
+  "title": "Pachinko",
+  "author": "Min Jin Lee",
+  "year": 2017,
+  "pages": 512,
+  "rating": 4.04,
+  "ratings": 25,
+  "cover_i": 8044605,
+  "key": "/works/OL17762217W",
+  "size": [
+   333,
+   500
+  ]
+ }
+}

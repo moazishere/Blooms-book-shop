@@ -1,0 +1,7 @@
+# Editor settings
+.vscode/
+
+# AI assistant tooling (local skill installs; .claude/skills are machine-specific symlinks)
+.claude/
+.agents/
+skills-lock.json
