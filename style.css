@@ -1177,6 +1177,38 @@ h1, h2, h3, p { margin: 0; }
   .header { flex-wrap: wrap; padding-block: 10px; }
   .logo { width: 70px; margin-inline-end: auto; }
   .search { order: 5; flex: 1 1 100%; margin-inline-start: 0; }
+
+  /* Scroll-away search row. The header keeps its size (so the page never jumps);
+     its background lives on ::before and shrinks to the top row, and the search fades out. */
+  .header {
+    --search-row: calc(44px + 14px); /* search height + row gap */
+    background: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: none;
+  }
+  .header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba(248, 247, 243, .92);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    transition: bottom .3s var(--ease-out), box-shadow .25s;
+  }
+  .header.is-scrolled::before { box-shadow: 0 8px 24px -16px rgba(60, 40, 10, .35); }
+  .header.search-hidden { pointer-events: none; }
+  .header.search-hidden > * { pointer-events: auto; }
+  .header.search-hidden::before { bottom: var(--search-row); }
+  .search { transition: opacity .25s, translate .3s var(--ease-out), visibility 0s; }
+  .header.search-hidden .search {
+    opacity: 0;
+    translate: 0 -12px;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .15s, translate .3s var(--ease-out), visibility 0s .3s;
+  }
   .header .btn--login { margin-inline-start: 0; height: 40px; }
 
   .menu-toggle {
@@ -1246,7 +1278,7 @@ h1, h2, h3, p { margin: 0; }
 @media (max-width: 600px) {
   :root { --gutter: 16px; }
 
-  .header { gap: 10px; padding-block: 12px; }
+  .header { gap: 10px; padding-block: 12px; --search-row: calc(44px + 10px); }
   .header.menu-open { max-height: 100dvh; overflow-y: auto; }
   .logo { width: 60px; }
   .header .btn--login { min-width: 0; padding: 0 16px; font-size: 14px; }

@@ -64,6 +64,7 @@
   const setMenu = (open) => {
     nav.classList.toggle("is-open", open);
     header.classList.toggle("menu-open", open);
+    if (open) header.classList.remove("search-hidden");
     menuToggle.setAttribute("aria-expanded", open);
     menuToggle.setAttribute("aria-label", t(open ? "menuClose" : "menuOpen"));
   };
@@ -328,6 +329,27 @@
     $('input[name="format"][value="all"]').checked = true;
     setGenre("all");
   });
+
+  /* Mobile: tuck the search row away while scrolling down, bring it back on scroll up.
+     Only the header's background shrinks (see CSS), so the page never jumps. */
+  const compactQuery = window.matchMedia("(max-width: 960px)");
+  let lastY = window.scrollY;
+  const onScrollSearch = () => {
+    const y = window.scrollY;
+    const keep = !compactQuery.matches || y < 120 || nav.classList.contains("is-open") ||
+      !filterPanel.hidden || document.activeElement === searchInput;
+    if (keep) {
+      header.classList.remove("search-hidden");
+      lastY = y;
+      return;
+    }
+    if (Math.abs(y - lastY) < 8) return; // ignore tiny jitters
+    header.classList.toggle("search-hidden", y > lastY);
+    lastY = y;
+  };
+  window.addEventListener("scroll", onScrollSearch, { passive: true });
+  compactQuery.addEventListener("change", onScrollSearch);
+  searchInput.addEventListener("focus", () => header.classList.remove("search-hidden"));
 
   /* ==========================================================
      Cart
