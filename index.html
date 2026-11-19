@@ -1,15 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bookish — Where Every Book Lover Connects and Collects</title>
-  <meta name="description" content="Bookish: discover books, join a book club, come to an author event and shop your next favourite read." />
+  <script>
+    // Pick the language before first paint: ?lang=ar|en, then the saved choice.
+    (function () {
+      var l = null;
+      try { l = new URLSearchParams(location.search).get("lang") || localStorage.getItem("blooms-lang"); } catch (e) {}
+      if (l === "ar") { document.documentElement.lang = "ar"; document.documentElement.dir = "rtl"; }
+    })();
+  </script>
+  <title data-i18n="meta.title">Blooms — Where Every Book Lover Connects and Collects</title>
+  <meta name="description" content="Blooms Book Store: discover books, come to an author event and shop your next favourite read." data-i18n-attr="content:meta.description" />
   <meta name="theme-color" content="#F8F7F3" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/logo-180.png" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lexend:wght@400;500;600&family=Lilita+One&family=Lobster&display=swap" rel="stylesheet" />
+  <!-- Latin faces first; the Arabic faces (Cairo, El Messiri, Aref Ruqaa, Lalezar) sit behind them in each stack
+       and are only downloaded when Arabic text is on screen. -->
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=El+Messiri:wght@500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Lalezar&family=Lexend:wght@400;500;600&family=Lobster&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="assets/logo.webp" />
   <link rel="preload" as="image" href="assets/covers/intermezzo.webp" />
   <link rel="stylesheet" href="style.css" />
   <script>
@@ -21,63 +34,56 @@
   </script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
 
   <div class="page">
 
     <!-- ============ HEADER ============ -->
     <header class="header">
-      <a href="#top" class="logo" aria-label="Bookish home">
-        <svg viewBox="0 0 120 72" aria-hidden="true">
-          <g fill="#F26A1B">
-            <circle cx="30" cy="34" r="19" /><circle cx="54" cy="27" r="21" />
-            <circle cx="80" cy="30" r="20" /><circle cx="98" cy="40" r="14" />
-            <circle cx="40" cy="46" r="17" /><circle cx="70" cy="46" r="18" />
-            <circle cx="17" cy="42" r="11" /><circle cx="46" cy="64" r="4" />
-            <circle cx="79" cy="66" r="3" /><circle cx="102" cy="58" r="3.2" />
-            <circle cx="12" cy="56" r="2.6" />
-          </g>
-          <text x="58" y="45" text-anchor="middle" transform="rotate(-7 58 40)">BOOKISH</text>
-        </svg>
+      <a href="#top" class="logo" aria-label="Blooms Book Store home" data-i18n-attr="aria-label:logo.home">
+        <img src="assets/logo.webp" alt="" width="520" height="526" />
       </a>
 
-      <nav class="nav" id="mainNav" aria-label="Main">
-        <a href="#top" class="nav__link is-active">Home</a>
+      <nav class="nav" id="mainNav" aria-label="Main" data-i18n-attr="aria-label:nav.aria">
+        <a href="#top" class="nav__link is-active" data-i18n="nav.home">Home</a>
         <div class="dropdown">
           <button class="nav__link dropdown__toggle" aria-expanded="false" aria-haspopup="true">
-            Community
+            <span data-i18n="nav.community">Community</span>
             <svg viewBox="0 0 24 24" class="chev" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
           </button>
           <ul class="dropdown__menu" role="menu">
-            <li><a href="#clubs" role="menuitem">Book Clubs</a></li>
-            <li><a href="#events" role="menuitem">Author Events</a></li>
-            <li><a href="#reviews" role="menuitem">Reader Reviews</a></li>
+            <!-- Book Clubs link hidden while the clubs section is commented out
+            <li><a href="#clubs" role="menuitem" data-i18n="nav.clubs">Book Clubs</a></li>
+            -->
+            <li><a href="#events" role="menuitem" data-i18n="nav.events">Author Events</a></li>
+            <li><a href="#reviews" role="menuitem" data-i18n="nav.reviews">Reader Reviews</a></li>
           </ul>
         </div>
-        <a href="#categories" class="nav__link">Category</a>
-        <a href="#visit" class="nav__link">About Us</a>
+        <a href="#categories" class="nav__link" data-i18n="nav.category">Category</a>
+        <a href="#visit" class="nav__link" data-i18n="nav.about">About Us</a>
       </nav>
 
       <form class="search" role="search" id="searchForm">
         <svg viewBox="0 0 24 24" class="search__icon" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg>
-        <input type="search" id="searchInput" placeholder="Search by title or author" aria-label="Search by title or author" autocomplete="off" />
-        <button type="button" class="search__filter" id="filterBtn" aria-label="Filters" aria-expanded="false" aria-controls="filterPanel">
+        <input type="search" id="searchInput" placeholder="Search by title or author" aria-label="Search by title or author" autocomplete="off"
+               data-i18n-attr="placeholder:search.placeholder, aria-label:search.placeholder" />
+        <button type="button" class="search__filter" id="filterBtn" aria-label="Filters" aria-expanded="false" aria-controls="filterPanel" data-i18n-attr="aria-label:search.filters">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9" /><circle cx="15" cy="7" r="2" /><circle cx="9" cy="17" r="2" /></svg>
         </button>
 
         <div class="filter-panel" id="filterPanel" hidden>
           <fieldset>
-            <legend>Format</legend>
-            <label><input type="radio" name="format" value="all" checked /> All</label>
-            <label><input type="radio" name="format" value="Paperback" /> Paperback</label>
-            <label><input type="radio" name="format" value="Hardcover" /> Hardcover</label>
+            <legend data-i18n="filter.format">Format</legend>
+            <label><input type="radio" name="format" value="all" checked /> <span data-i18n="filter.all">All</span></label>
+            <label><input type="radio" name="format" value="Paperback" /> <span data-i18n="filter.paperback">Paperback</span></label>
+            <label><input type="radio" name="format" value="Hardcover" /> <span data-i18n="filter.hardcover">Hardcover</span></label>
           </fieldset>
           <fieldset>
-            <legend>Sort by</legend>
-            <label><input type="radio" name="sort" value="featured" checked /> Featured</label>
-            <label><input type="radio" name="sort" value="price" /> Price: low to high</label>
-            <label><input type="radio" name="sort" value="rating" /> Top rated</label>
-            <label><input type="radio" name="sort" value="new" /> Newest</label>
+            <legend data-i18n="filter.sort">Sort by</legend>
+            <label><input type="radio" name="sort" value="featured" checked /> <span data-i18n="sort.featured">Featured</span></label>
+            <label><input type="radio" name="sort" value="price" /> <span data-i18n="sort.price">Price: low to high</span></label>
+            <label><input type="radio" name="sort" value="rating" /> <span data-i18n="sort.rating">Top rated</span></label>
+            <label><input type="radio" name="sort" value="new" /> <span data-i18n="sort.new">Newest</span></label>
           </fieldset>
         </div>
       </form>
@@ -87,7 +93,13 @@
         <span class="cart__count" id="cartCount" hidden>0</span>
       </button>
 
-      <a href="#" class="btn btn--login">Login</a>
+      <!-- Language switch: label is filled in by i18n.js -->
+      <button type="button" class="lang-toggle" id="langToggle" lang="ar" aria-label="عرض الموقع باللغة العربية">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z" /></svg>
+        <span>العربية</span>
+      </button>
+
+      <a href="#" class="btn btn--login" data-i18n="login">Login</a>
 
       <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
         <span></span><span></span><span></span>
@@ -99,9 +111,9 @@
     <!-- ============ HERO ============ -->
     <section class="hero" id="top">
       <div class="hero__content">
-        <p class="hero__eyebrow">Your bookshelf is expanding...</p>
-        <h1 class="hero__title">
-          <span class="script">Bookish</span> - Where Every
+        <p class="hero__eyebrow" data-i18n="hero.eyebrow">Your bookshelf is expanding...</p>
+        <h1 class="hero__title" data-i18n-html="hero.title">
+          <span class="script">Blooms</span> - Where Every
           Bo<svg class="book-stack" viewBox="0 0 40 30" aria-hidden="true">
             <rect x="3" y="21" width="32" height="7" rx="1.5" fill="#86C3D6" />
             <rect x="3" y="23.2" width="32" height="1.6" fill="#fff" opacity=".7" />
@@ -112,15 +124,15 @@
           </svg>k Lovers <span class="script">Connect</span>
           and <span class="script">Collect</span>
         </h1>
-        <p class="hero__text">
+        <p class="hero__text" data-i18n="hero.text">
           Unbind the extraordinary magic of books, build reader community,
           and purchase at your heart's desire. Your next favourite story is
           a single click away.
         </p>
-        <a href="#trending" class="btn btn--primary">Get Started</a>
+        <a href="#trending" class="btn btn--primary" data-i18n="hero.cta">Get Started</a>
       </div>
 
-      <div class="hero__collage" aria-label="Featured books">
+      <div class="hero__collage" aria-label="Featured books" data-i18n-attr="aria-label:hero.collage">
         <button class="tile" data-book="the-women"><img src="assets/covers/the-women.webp" alt="The Women by Kristin Hannah" width="333" height="500" /></button>
         <button class="tile" data-book="babel"><img src="assets/covers/babel.webp" alt="Babel by R. F. Kuang" width="330" height="500" /></button>
         <button class="tile" data-book="night-circus"><img src="assets/covers/night-circus.webp" alt="The Night Circus by Erin Morgenstern" width="326" height="500" /></button>
@@ -141,19 +153,19 @@
     <!-- ============ TRENDING ============ -->
     <section class="section section--flush" id="trending" aria-labelledby="trendingTitle">
       <div class="section__head">
-        <h2 id="trendingTitle">Trending This Week</h2>
-        <a href="#browse" class="more">See all
+        <h2 id="trendingTitle" data-i18n="trending.title">Trending This Week</h2>
+        <a href="#browse" class="more"><span data-i18n="more.all">See all</span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
         </a>
       </div>
     </section>
 
     <div class="carousel">
-      <button class="carousel__arrow carousel__arrow--prev" id="prevBtn" aria-label="Previous books">
+      <button class="carousel__arrow carousel__arrow--prev" id="prevBtn" aria-label="Previous books" data-i18n-attr="aria-label:carousel.prev">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6 8 12l7 6z" /></svg>
       </button>
-      <div class="carousel__track" id="track" tabindex="0" aria-label="Trending books"></div>
-      <button class="carousel__arrow carousel__arrow--next" id="nextBtn" aria-label="Next books">
+      <div class="carousel__track" id="track" tabindex="0" aria-label="Trending books" data-i18n-attr="aria-label:carousel.track"></div>
+      <button class="carousel__arrow carousel__arrow--next" id="nextBtn" aria-label="Next books" data-i18n-attr="aria-label:carousel.next">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 7 6-7 6z" /></svg>
       </button>
     </div>
@@ -161,30 +173,32 @@
     <!-- ============ BOOK OF THE MONTH ============ -->
     <section class="botm" aria-labelledby="botmTitle">
       <div class="botm__art">
-        <button class="botm__cover" data-book="james" aria-label="Quick view: James">
+        <button class="botm__cover" data-book="james" aria-label="Quick view: James" data-i18n-attr="aria-label:botm.cover">
           <img src="assets/covers/james.webp" alt="" width="325" height="500" loading="lazy" />
         </button>
-        <span class="botm__badge" aria-hidden="true"><b>Pulitzer</b>Prize<br />2025</span>
+        <span class="botm__badge" aria-hidden="true" data-i18n-html="botm.badge"><b>Pulitzer</b>Prize<br />2025</span>
       </div>
       <div class="botm__body">
-        <p class="botm__kicker">October's Book of the Month</p>
-        <h2 id="botmTitle" class="botm__title">James</h2>
-        <p class="botm__author">Percival Everett</p>
-        <p class="botm__text">
+        <p class="botm__kicker" data-i18n="botm.kicker">October's Book of the Month</p>
+        <h2 id="botmTitle" class="botm__title" lang="en">James</h2>
+        <p class="botm__author" lang="en">Percival Everett</p>
+        <p class="botm__text" data-i18n="botm.text">
           You know this river. You know Huck. You have never heard Jim like this.
           Everett hands the raft to the man who was always on it, and the result
           is sly, harrowing and genuinely funny — a book our whole staff pressed
           into customers' hands this year.
         </p>
-        <ul class="botm__facts">
+        <ul class="botm__facts" data-i18n-html="botm.facts">
           <li><strong>Pulitzer Prize</strong> for Fiction, 2025</li>
           <li><strong>National Book Award</strong> for Fiction, 2024</li>
           <li><strong>Hardcover</strong>, 320 pages</li>
         </ul>
         <div class="botm__buy">
           <p class="botm__price">$28.00</p>
-          <button class="btn btn--cart btn--lg" data-add="james">Add To Cart</button>
-          <a href="#clubs" class="botm__club">Discuss it with the Thursday Novel Club</a>
+          <button class="btn btn--cart btn--lg" data-add="james" data-i18n="btn.addCart">Add To Cart</button>
+          <!-- Book club link hidden while the clubs section is commented out
+          <a href="#clubs" class="botm__club" data-i18n="botm.club">Discuss it with the Thursday Novel Club</a>
+          -->
         </div>
       </div>
     </section>
@@ -192,8 +206,8 @@
     <!-- ============ CATEGORIES ============ -->
     <section class="section" id="categories" aria-labelledby="catTitle">
       <div class="section__head">
-        <h2 id="catTitle">Popular Categories</h2>
-        <a href="#browse" class="more">Browse all
+        <h2 id="catTitle" data-i18n="cat.title">Popular Categories</h2>
+        <a href="#browse" class="more"><span data-i18n="more.browseAll">Browse all</span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
         </a>
       </div>
@@ -203,124 +217,129 @@
     <!-- ============ BROWSE ============ -->
     <section class="section browse" id="browse" aria-labelledby="browseTitle">
       <div class="section__head">
-        <h2 id="browseTitle">Browse the Shelves</h2>
+        <h2 id="browseTitle" data-i18n="browse.title">Browse the Shelves</h2>
         <p class="browse__count" id="browseCount" aria-live="polite"></p>
       </div>
-      <div class="tabs" role="tablist" aria-label="Filter by genre" id="genreTabs"></div>
+      <div class="tabs" role="tablist" aria-label="Filter by genre" id="genreTabs" data-i18n-attr="aria-label:browse.tabs"></div>
       <div class="shelf" id="shelf"></div>
       <div class="shelf__more" id="shelfMore" hidden>
         <button class="btn btn--ghost" id="showAll"></button>
       </div>
       <div class="shelf__empty" id="shelfEmpty" hidden>
-        <p>No books match “<span id="emptyQuery"></span>”.</p>
-        <button class="btn btn--ghost" id="clearFilters">Clear search and filters</button>
+        <p data-i18n-html="browse.empty">No books match “<span id="emptyQuery"></span>”.</p>
+        <button class="btn btn--ghost" id="clearFilters" data-i18n="browse.clear">Clear search and filters</button>
       </div>
     </section>
 
     <!-- ============ COMMUNITY: CLUBS ============ -->
+    <!-- Book Clubs section is commented out for now. To bring it back, delete this
+         comment wrapper and un-comment the "Book Clubs" links in the nav dropdown,
+         the Book of the Month block and the footer. Arabic copy is already in i18n.js.
+
     <section class="section community" id="clubs" aria-labelledby="clubsTitle">
       <div class="section__head">
-        <h2 id="clubsTitle">Book Clubs</h2>
-        <p class="section__note">Free to join. Meet in the shop or online.</p>
+        <h2 id="clubsTitle" data-i18n="clubs.title">Book Clubs</h2>
+        <p class="section__note" data-i18n="clubs.note">Free to join. Meet in the shop or online.</p>
       </div>
 
       <div class="clubs">
-        <article class="club">
+        <article class="club" data-club="thursday-novel">
           <div class="club__photo">
-            <img src="assets/photos/club-table.webp" alt="Readers around a table with open books" loading="lazy" width="1400" height="1050" />
+            <img src="assets/photos/club-table.webp" alt="Readers around a table with open books" loading="lazy" width="1400" height="1050" data-i18n-attr="alt:club1.alt" />
           </div>
           <div class="club__body">
-            <h3>Thursday Novel Club</h3>
-            <p>Literary fiction, one book a month, long arguments about endings. First Thursday, 7pm.</p>
+            <h3 data-i18n="club1.name">Thursday Novel Club</h3>
+            <p data-i18n="club1.desc">Literary fiction, one book a month, long arguments about endings. First Thursday, 7pm.</p>
             <div class="club__now">
               <img src="assets/covers/james.webp" alt="" width="325" height="500" loading="lazy" />
-              <p><span>Reading now</span>James — Percival Everett</p>
+              <p><span data-i18n="clubs.readingNow">Reading now</span><bdi>James — Percival Everett</bdi></p>
             </div>
             <div class="club__foot">
-              <p class="club__members"><b data-members>148</b> members</p>
+              <p class="club__members"><b data-members>148</b> <span data-i18n="clubs.members">members</span></p>
               <button class="btn btn--join" aria-pressed="false">Join club</button>
             </div>
           </div>
         </article>
 
-        <article class="club">
+        <article class="club" data-club="swoon-society">
           <div class="club__photo">
-            <img src="assets/photos/club-couch.webp" alt="Three friends on a sofa laughing over a book" loading="lazy" width="1400" height="933" />
+            <img src="assets/photos/club-couch.webp" alt="Three friends on a sofa laughing over a book" loading="lazy" width="1400" height="933" data-i18n-attr="alt:club2.alt" />
           </div>
           <div class="club__body">
-            <h3>Swoon Society</h3>
-            <p>Romance and rom-coms, snacks mandatory. Every other Sunday afternoon in the reading room.</p>
+            <h3 data-i18n="club2.name">Swoon Society</h3>
+            <p data-i18n="club2.desc">Romance and rom-coms, snacks mandatory. Every other Sunday afternoon in the reading room.</p>
             <div class="club__now">
               <img src="assets/covers/funny-story.webp" alt="" width="295" height="445" loading="lazy" />
-              <p><span>Reading now</span>Funny Story — Emily Henry</p>
+              <p><span data-i18n="clubs.readingNow">Reading now</span><bdi>Funny Story — Emily Henry</bdi></p>
             </div>
             <div class="club__foot">
-              <p class="club__members"><b data-members>231</b> members</p>
+              <p class="club__members"><b data-members>231</b> <span data-i18n="clubs.members">members</span></p>
               <button class="btn btn--join" aria-pressed="false">Join club</button>
             </div>
           </div>
         </article>
 
-        <article class="club">
+        <article class="club" data-club="golden-pages">
           <div class="club__photo">
-            <img src="assets/photos/seniors-circle.webp" alt="Two women reading in armchairs" loading="lazy" width="1400" height="941" />
+            <img src="assets/photos/seniors-circle.webp" alt="Two women reading in armchairs" loading="lazy" width="1400" height="941" data-i18n-attr="alt:club3.alt" />
           </div>
           <div class="club__body">
-            <h3>Golden Pages Circle</h3>
-            <p>A slower-paced club with large-print copies on hand. Tuesday mornings, tea and biscuits included.</p>
+            <h3 data-i18n="club3.name">Golden Pages Circle</h3>
+            <p data-i18n="club3.desc">A slower-paced club with large-print copies on hand. Tuesday mornings, tea and biscuits included.</p>
             <div class="club__now">
               <img src="assets/covers/remarkably-bright-creatures.webp" alt="" width="326" height="500" loading="lazy" />
-              <p><span>Reading now</span>Remarkably Bright Creatures — Shelby Van Pelt</p>
+              <p><span data-i18n="clubs.readingNow">Reading now</span><bdi>Remarkably Bright Creatures — Shelby Van Pelt</bdi></p>
             </div>
             <div class="club__foot">
-              <p class="club__members"><b data-members>64</b> members</p>
+              <p class="club__members"><b data-members>64</b> <span data-i18n="clubs.members">members</span></p>
               <button class="btn btn--join" aria-pressed="false">Join club</button>
             </div>
           </div>
         </article>
       </div>
     </section>
+    END OF COMMENTED-OUT BOOK CLUBS SECTION -->
 
     <!-- ============ COMMUNITY: EVENTS ============ -->
     <section class="section events-wrap" id="events" aria-labelledby="eventsTitle">
       <div class="events">
         <div class="events__feature">
-          <img src="assets/photos/signing.webp" alt="An author signing a book for a reader" loading="lazy" width="1050" height="1400" />
+          <img src="assets/photos/signing.webp" alt="An author signing a book for a reader" loading="lazy" width="1050" height="1400" data-i18n-attr="alt:events.alt" />
         </div>
         <div class="events__list">
           <div class="section__head">
-            <h2 id="eventsTitle">Upcoming Events</h2>
+            <h2 id="eventsTitle" data-i18n="events.title">Upcoming Events</h2>
           </div>
           <ol class="event-list">
             <li class="event">
-              <time class="event__date" datetime="2026-10-08"><b>08</b>Oct</time>
+              <time class="event__date" datetime="2026-10-08"><b>08</b><span data-i18n="month.oct">Oct</span></time>
               <div class="event__info">
-                <h3>Silent Reading Night</h3>
-                <p>Bring whatever you're reading. One hour of quiet, then wine and conversation. Thu, 7:00pm</p>
+                <h3 data-i18n="ev1.title">Silent Reading Night</h3>
+                <p data-i18n="ev1.text">Bring whatever you're reading. One hour of quiet, then wine and conversation. Thu, 7:00pm</p>
               </div>
               <button class="btn btn--rsvp" aria-pressed="false">RSVP</button>
             </li>
             <li class="event">
-              <time class="event__date" datetime="2026-10-17"><b>17</b>Oct</time>
+              <time class="event__date" datetime="2026-10-17"><b>17</b><span data-i18n="month.oct">Oct</span></time>
               <div class="event__info">
-                <h3>Debut Authors Signing Afternoon</h3>
-                <p>Five first-time novelists from the region read, chat and sign. Sat, 2:00pm</p>
+                <h3 data-i18n="ev2.title">Debut Authors Signing Afternoon</h3>
+                <p data-i18n="ev2.text">Five first-time novelists from the region read, chat and sign. Sat, 2:00pm</p>
               </div>
               <button class="btn btn--rsvp" aria-pressed="false">RSVP</button>
             </li>
             <li class="event">
-              <time class="event__date" datetime="2026-10-21"><b>21</b>Oct</time>
+              <time class="event__date" datetime="2026-10-21"><b>21</b><span data-i18n="month.oct">Oct</span></time>
               <div class="event__info">
-                <h3><i>James</i> — open club discussion</h3>
-                <p>Our Book of the Month, discussed by anyone who wants in. Copies 15% off on the night. Wed, 6:30pm</p>
+                <h3 data-i18n-html="ev3.title"><i>James</i> — open club discussion</h3>
+                <p data-i18n="ev3.text">Our Book of the Month, discussed by anyone who wants in. Copies 15% off on the night. Wed, 6:30pm</p>
               </div>
               <button class="btn btn--rsvp" aria-pressed="false">RSVP</button>
             </li>
             <li class="event">
-              <time class="event__date" datetime="2026-10-31"><b>31</b>Oct</time>
+              <time class="event__date" datetime="2026-10-31"><b>31</b><span data-i18n="month.oct">Oct</span></time>
               <div class="event__info">
-                <h3>Spooky Stories by Candlelight</h3>
-                <p>Ghost stories read aloud for grown-ups. Costumes encouraged, not required. Sat, 8:00pm</p>
+                <h3 data-i18n="ev4.title">Spooky Stories by Candlelight</h3>
+                <p data-i18n="ev4.text">Ghost stories read aloud for grown-ups. Costumes encouraged, not required. Sat, 8:00pm</p>
               </div>
               <button class="btn btn--rsvp" aria-pressed="false">RSVP</button>
             </li>
@@ -332,29 +351,29 @@
     <!-- ============ REVIEWS ============ -->
     <section class="section" id="reviews" aria-labelledby="reviewsTitle">
       <div class="section__head">
-        <h2 id="reviewsTitle">What Readers Are Saying</h2>
+        <h2 id="reviewsTitle" data-i18n="reviews.title">What Readers Are Saying</h2>
       </div>
       <div class="reviews">
         <figure class="review">
-          <button class="review__book" data-book="project-hail-mary" aria-label="Quick view: Project Hail Mary">
+          <button class="review__book" data-book="project-hail-mary" aria-label="Quick view: Project Hail Mary" data-i18n-attr="aria-label:rev1.qv">
             <img src="assets/covers/project-hail-mary.webp" alt="" width="325" height="500" loading="lazy" />
           </button>
-          <blockquote>I bought it because the shop cat was sleeping on the stack. Finished it in two days and cried over an alien. No regrets.</blockquote>
-          <figcaption><b>Priya N.</b> on <i>Project Hail Mary</i></figcaption>
+          <blockquote data-i18n="rev1.quote">I bought it because the shop cat was sleeping on the stack. Finished it in two days and cried over an alien. No regrets.</blockquote>
+          <figcaption data-i18n-html="rev1.cap"><b>Rama K.</b> on <i>Project Hail Mary</i></figcaption>
         </figure>
         <figure class="review">
-          <button class="review__book" data-book="braiding-sweetgrass" aria-label="Quick view: Braiding Sweetgrass">
+          <button class="review__book" data-book="braiding-sweetgrass" aria-label="Quick view: Braiding Sweetgrass" data-i18n-attr="aria-label:rev2.qv">
             <img src="assets/covers/braiding-sweetgrass.webp" alt="" width="230" height="356" loading="lazy" />
           </button>
-          <blockquote>A staff recommendation that changed how I walk through my own garden. I've since bought four copies as gifts.</blockquote>
-          <figcaption><b>Tomás R.</b> on <i>Braiding Sweetgrass</i></figcaption>
+          <blockquote data-i18n="rev2.quote">A staff recommendation that changed how I walk through my own garden. I've since bought four copies as gifts.</blockquote>
+          <figcaption data-i18n-html="rev2.cap"><b>Omar H.</b> on <i>Braiding Sweetgrass</i></figcaption>
         </figure>
         <figure class="review">
-          <button class="review__book" data-book="thursday-murder-club" aria-label="Quick view: The Thursday Murder Club">
+          <button class="review__book" data-book="thursday-murder-club" aria-label="Quick view: The Thursday Murder Club" data-i18n-attr="aria-label:rev3.qv">
             <img src="assets/covers/thursday-murder-club.webp" alt="" width="331" height="500" loading="lazy" />
           </button>
-          <blockquote>Our Golden Pages Circle read this together and we've now started solving the neighbourhood's mysteries. Mostly missing post.</blockquote>
-          <figcaption><b>Margaret H.</b> on <i>The Thursday Murder Club</i></figcaption>
+          <blockquote data-i18n="rev3.quote">Our reading group read this together and we've now started solving the neighbourhood's mysteries. Mostly missing post.</blockquote>
+          <figcaption data-i18n-html="rev3.cap"><b>Hala S.</b> on <i>The Thursday Murder Club</i></figcaption>
         </figure>
       </div>
     </section>
@@ -362,24 +381,24 @@
     <!-- ============ VISIT ============ -->
     <section class="visit" id="visit" aria-labelledby="visitTitle">
       <div class="visit__photos">
-        <img class="visit__main" src="assets/photos/store-interior.webp" alt="Inside a bright bookshop with tall shelves and an arched window" loading="lazy" width="1400" height="933" />
-        <img class="visit__inset" src="assets/photos/store-cozy.webp" alt="A cosy reading corner lined with bookshelves" loading="lazy" width="933" height="1400" />
+        <img class="visit__main" src="assets/photos/store-interior.webp" alt="Inside a bright bookshop with tall shelves and an arched window" loading="lazy" width="1400" height="933" data-i18n-attr="alt:visit.altMain" />
+        <img class="visit__inset" src="assets/photos/store-cozy.webp" alt="A cosy reading corner lined with bookshelves" loading="lazy" width="933" height="1400" data-i18n-attr="alt:visit.altInset" />
       </div>
       <div class="visit__body">
-        <h2 id="visitTitle">Come Browse in Person</h2>
-        <p>
-          Bookish started as a single shelf in a café. Today it's two floors of
-          new and second-hand books, a reading room with the best armchairs in
-          town, and a team who will happily talk your ear off about what to read next.
+        <h2 id="visitTitle" data-i18n="visit.title">Come Browse in Person</h2>
+        <p data-i18n="visit.text">
+          Blooms started as an online store. Today we have our own shop in
+          Al-Shaalan, full of new and second-hand books, with a cosy reading corner
+          and a team who will happily talk your ear off about what to read next.
         </p>
         <dl class="hours">
-          <div><dt>Mon – Fri</dt><dd>9:00am – 8:00pm</dd></div>
-          <div><dt>Saturday</dt><dd>10:00am – 9:00pm</dd></div>
-          <div><dt>Sunday</dt><dd>11:00am – 6:00pm</dd></div>
+          <div><dt data-i18n="hours.week">Mon – Fri</dt><dd data-i18n="hours.weekTime">9:00am – 8:00pm</dd></div>
+          <div><dt data-i18n="hours.sat">Saturday</dt><dd data-i18n="hours.satTime">10:00am – 9:00pm</dd></div>
+          <div><dt data-i18n="hours.sun">Sunday</dt><dd data-i18n="hours.sunTime">11:00am – 6:00pm</dd></div>
         </dl>
         <address>
-          214 Larkin Street, Riverside<br />
-          <a href="tel:+15550142214">(555) 014-2214</a> · <a href="mailto:hello@bookish.example">hello@bookish.example</a>
+          <span data-i18n="visit.street">Al-Shaalan, Damascus, Syria</span><br />
+          <a href="tel:+15550142214" dir="ltr">(555) 014-2214</a> · <a href="mailto:hello@blooms.example">hello@blooms.example</a>
         </address>
       </div>
     </section>
@@ -390,56 +409,48 @@
     <footer class="footer">
       <div class="footer__top">
         <div class="footer__brand">
-          <a href="#top" class="logo" aria-label="Bookish home">
-            <svg viewBox="0 0 120 72" aria-hidden="true">
-              <g fill="#F26A1B">
-                <circle cx="30" cy="34" r="19" /><circle cx="54" cy="27" r="21" />
-                <circle cx="80" cy="30" r="20" /><circle cx="98" cy="40" r="14" />
-                <circle cx="40" cy="46" r="17" /><circle cx="70" cy="46" r="18" />
-                <circle cx="17" cy="42" r="11" /><circle cx="46" cy="64" r="4" />
-                <circle cx="79" cy="66" r="3" /><circle cx="102" cy="58" r="3.2" />
-                <circle cx="12" cy="56" r="2.6" />
-              </g>
-              <text x="58" y="45" text-anchor="middle" transform="rotate(-7 58 40)">BOOKISH</text>
-            </svg>
+          <a href="#top" class="logo" aria-label="Blooms Book Store home" data-i18n-attr="aria-label:logo.home">
+            <img src="assets/logo.webp" alt="" width="520" height="526" loading="lazy" />
           </a>
-          <p>New releases, staff picks and event invites — one email a week, never more.</p>
+          <p data-i18n="footer.blurb">New releases, staff picks and event invites — one email a week, never more.</p>
           <form class="newsletter" id="newsletterForm">
-            <input type="email" placeholder="Your email address" aria-label="Email address" required />
-            <button type="submit">Subscribe</button>
+            <input type="email" placeholder="Your email address" aria-label="Email address" required data-i18n-attr="placeholder:footer.email, aria-label:footer.email" />
+            <button type="submit" data-i18n="footer.subscribe">Subscribe</button>
           </form>
         </div>
         <div>
-          <h4>Shop</h4>
+          <h4 data-i18n="footer.shop">Shop</h4>
           <ul>
-            <li><a href="#trending">Trending</a></li>
-            <li><a href="#browse">All Books</a></li>
-            <li><a href="#categories">Categories</a></li>
-            <li><a href="#">Gift Cards</a></li>
+            <li><a href="#trending" data-i18n="footer.trending">Trending</a></li>
+            <li><a href="#browse" data-i18n="footer.allBooks">All Books</a></li>
+            <li><a href="#categories" data-i18n="footer.categories">Categories</a></li>
+            <li><a href="#" data-i18n="footer.gift">Gift Cards</a></li>
           </ul>
         </div>
         <div>
-          <h4>Community</h4>
+          <h4 data-i18n="footer.community">Community</h4>
           <ul>
-            <li><a href="#clubs">Book Clubs</a></li>
-            <li><a href="#events">Author Events</a></li>
-            <li><a href="#reviews">Reader Reviews</a></li>
+            <!-- Book Clubs link hidden while the clubs section is commented out
+            <li><a href="#clubs" data-i18n="nav.clubs">Book Clubs</a></li>
+            -->
+            <li><a href="#events" data-i18n="nav.events">Author Events</a></li>
+            <li><a href="#reviews" data-i18n="nav.reviews">Reader Reviews</a></li>
           </ul>
         </div>
         <div>
-          <h4>Help</h4>
+          <h4 data-i18n="footer.help">Help</h4>
           <ul>
-            <li><a href="#visit">About Us</a></li>
-            <li><a href="#">Shipping &amp; Returns</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="mailto:hello@bookish.example">Contact</a></li>
+            <li><a href="#visit" data-i18n="nav.about">About Us</a></li>
+            <li><a href="#" data-i18n="footer.shipping">Shipping &amp; Returns</a></li>
+            <li><a href="#" data-i18n="footer.faq">FAQ</a></li>
+            <li><a href="mailto:hello@blooms.example" data-i18n="footer.contact">Contact</a></li>
           </ul>
         </div>
       </div>
       <div class="footer__bottom">
-        <span>&copy; <span id="year">2026</span> Bookish. All rights reserved.</span>
-        <span>Covers via <a href="https://openlibrary.org" rel="noopener">Open Library</a> · Photos via <a href="https://unsplash.com" rel="noopener">Unsplash</a></span>
-        <span><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms of Service</a></span>
+        <span>&copy; <span id="year">2026</span> <span data-i18n="footer.rights">Blooms. All rights reserved.</span></span>
+        <span data-i18n-html="footer.credits">Covers via <a href="https://openlibrary.org" rel="noopener">Open Library</a> · Photos via <a href="https://unsplash.com" rel="noopener">Unsplash</a></span>
+        <span><a href="#" data-i18n="footer.privacy">Privacy Policy</a> &nbsp;·&nbsp; <a href="#" data-i18n="footer.terms">Terms of Service</a></span>
       </div>
     </footer>
   </div>
@@ -448,8 +459,8 @@
   <div class="scrim" id="scrim" hidden></div>
   <aside class="drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle" aria-hidden="true" inert>
     <div class="drawer__head">
-      <h2 id="cartTitle">Your Cart</h2>
-      <button class="icon-btn" id="cartClose" aria-label="Close cart">
+      <h2 id="cartTitle" data-i18n="cart.title">Your Cart</h2>
+      <button class="icon-btn" id="cartClose" aria-label="Close cart" data-i18n-attr="aria-label:cart.close">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
       </button>
     </div>
@@ -459,31 +470,31 @@
     </div>
     <ul class="drawer__items" id="cartItems"></ul>
     <div class="drawer__empty" id="cartEmpty">
-      <p>Your cart is empty.</p>
-      <a href="#trending" class="btn btn--cart" id="cartBrowse">Find something to read</a>
+      <p data-i18n="cart.empty">Your cart is empty.</p>
+      <a href="#trending" class="btn btn--cart" id="cartBrowse" data-i18n="cart.browse">Find something to read</a>
     </div>
     <div class="drawer__foot" id="cartFoot">
-      <p class="drawer__total"><span>Subtotal</span><b id="cartSubtotal">$0.00</b></p>
-      <button class="btn btn--primary btn--block" id="checkoutBtn">Checkout</button>
+      <p class="drawer__total"><span data-i18n="cart.subtotal">Subtotal</span><b id="cartSubtotal">$0.00</b></p>
+      <button class="btn btn--primary btn--block" id="checkoutBtn" data-i18n="cart.checkout">Checkout</button>
     </div>
   </aside>
 
   <!-- ============ QUICK VIEW ============ -->
   <dialog class="qv" id="quickView" aria-labelledby="qvTitle">
-    <button class="icon-btn qv__close" id="qvClose" aria-label="Close">
+    <button class="icon-btn qv__close" id="qvClose" aria-label="Close" data-i18n-attr="aria-label:qv.close">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
     </button>
     <div class="qv__cover"><img id="qvImg" src="" alt="" /></div>
     <div class="qv__body">
       <p class="qv__genre" id="qvGenre"></p>
-      <h2 id="qvTitle"></h2>
+      <h2 id="qvTitle" lang="en"></h2>
       <p class="qv__author" id="qvAuthor"></p>
       <p class="book__rating" id="qvRating"></p>
       <p class="qv__blurb" id="qvBlurb"></p>
       <p class="qv__meta" id="qvMeta"></p>
       <div class="qv__buy">
         <p class="qv__price" id="qvPrice"></p>
-        <button class="btn btn--cart btn--lg" id="qvAdd">Add To Cart</button>
+        <button class="btn btn--cart btn--lg" id="qvAdd" data-i18n="btn.addCart">Add To Cart</button>
       </div>
     </div>
   </dialog>
@@ -492,6 +503,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js" defer></script>
+  <script src="i18n.js" defer></script>
   <script src="books.js" defer></script>
   <script src="script.js" defer></script>
 </body>

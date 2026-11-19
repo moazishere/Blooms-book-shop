@@ -1,5 +1,5 @@
 /* ==========================================================
-   Bookish — interactions
+   Blooms — interactions
    GSAP (+ Flip) is optional: every feature works without it,
    motion is layered on top and gated by prefers-reduced-motion.
    ========================================================== */
@@ -10,6 +10,14 @@
   const CATALOG = window.BOOKISH_CATALOG || [];
   const GENRES = window.BOOKISH_GENRES || {};
   const byId = Object.fromEntries(CATALOG.map((b) => [b.id, b]));
+
+  // English / Arabic helpers (i18n.js). Falls back to plain English if it failed to load.
+  const L = window.BloomsLang || {
+    lang: "en", rtl: false, t: (k, v = {}) => k.replace(/\{(\w+)\}/g, (_, x) => v[x]),
+    onChange() {}, genre: (_, f) => f, format: (f) => f, blurb: (b) => b.blurb, locale: () => "en-US",
+  };
+  const t = L.t;
+  const genreName = (key) => L.genre(key, GENRES[key]);
 
   const hasGSAP = typeof window.gsap !== "undefined";
   const hasFlip = hasGSAP && typeof window.Flip !== "undefined";
@@ -57,7 +65,7 @@
     nav.classList.toggle("is-open", open);
     header.classList.toggle("menu-open", open);
     menuToggle.setAttribute("aria-expanded", open);
-    menuToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    menuToggle.setAttribute("aria-label", t(open ? "menuClose" : "menuOpen"));
   };
   menuToggle.addEventListener("click", () => setMenu(!nav.classList.contains("is-open")));
 
@@ -104,23 +112,26 @@
   const trendingIds = ["cosmic-love", "love-is-a-war-song", "intermezzo", "water-moon", "maggie", "gate-of-the-feral-gods", "onyx-storm", "god-of-the-woods", "funny-story", "the-women"];
 
   const track = $("#track");
-  track.innerHTML = trendingIds.map((id) => {
-    const b = byId[id];
-    return `
-      <article class="book">
-        <button class="cover-img" data-book="${b.id}" aria-label="Quick view: ${b.title}">
-          <img src="${coverSrc(b.id)}" alt="" loading="lazy" width="124" height="184" />
-        </button>
-        <div class="book__info">
-          <h3>${b.title}</h3>
-          <p class="book__author">${b.author}</p>
-          <p class="book__meta">${b.year} <span>|</span> ${b.format}</p>
-          <p class="book__rating">${ratingHTML(b)}</p>
-          <p class="book__price">${money(b.price)}</p>
-          <button class="btn btn--cart" data-add="${b.id}">Add To Cart</button>
-        </div>
-      </article>`;
-  }).join("");
+  const renderTrending = () => {
+    track.innerHTML = trendingIds.map((id) => {
+      const b = byId[id];
+      return `
+        <article class="book">
+          <button class="cover-img" data-book="${b.id}" aria-label="${t("quickView", { title: b.title })}">
+            <img src="${coverSrc(b.id)}" alt="" loading="lazy" width="124" height="184" />
+          </button>
+          <div class="book__info">
+            <h3 lang="en">${b.title}</h3>
+            <p class="book__author" lang="en">${b.author}</p>
+            <p class="book__meta">${b.year} <span>|</span> ${L.format(b.format)}</p>
+            <p class="book__rating">${ratingHTML(b)}</p>
+            <p class="book__price">${money(b.price)}</p>
+            <button class="btn btn--cart" data-add="${b.id}">${t("addCart")}</button>
+          </div>
+        </article>`;
+    }).join("");
+  };
+  renderTrending();
 
   const categoryStyle = {
     fiction:    { tile: "#FFF3C2", fan: ["tomorrow-x3", "james", "the-women"] },
@@ -132,39 +143,54 @@
   };
   const genreCount = (g) => CATALOG.filter((b) => b.genre === g).length;
 
-  $("#categoryGrid").innerHTML = Object.entries(GENRES).map(([key, name]) => {
-    const { tile, fan } = categoryStyle[key];
-    return `
-      <button class="category" data-genre="${key}" style="--tile:${tile}">
-        <h3>${name}</h3>
-        <p>${genreCount(key)} titles in stock</p>
-        <span class="category__go">Browse ${name.split(" ")[0].toLowerCase()}</span>
-        <span class="fan" aria-hidden="true">${fan.map((id) => `<img src="${coverSrc(id)}" alt="" loading="lazy" />`).join("")}</span>
-      </button>`;
-  }).join("");
+  const renderCategories = () => {
+    $("#categoryGrid").innerHTML = Object.keys(GENRES).map((key) => {
+      const { tile, fan } = categoryStyle[key];
+      const name = genreName(key);
+      const browse = L.rtl ? `تصفّح ${name}` : `Browse ${name.split(" ")[0].toLowerCase()}`;
+      return `
+        <button class="category" data-genre="${key}" style="--tile:${tile}">
+          <h3>${name}</h3>
+          <p>${t("inStock", { n: genreCount(key) })}</p>
+          <span class="category__go">${browse}</span>
+          <span class="fan" aria-hidden="true">${fan.map((id) => `<img src="${coverSrc(id)}" alt="" loading="lazy" />`).join("")}</span>
+        </button>`;
+    }).join("");
+  };
+  renderCategories();
 
   const tabs = $("#genreTabs");
-  tabs.innerHTML = [["all", "All books"], ...Object.entries(GENRES)]
-    .map(([key, name], i) => `<button class="tab" role="tab" data-genre="${key}" aria-selected="${i === 0}">${name}</button>`)
-    .join("");
+  const renderTabs = (selected = "all") => {
+    tabs.innerHTML = [["all", t("allBooks")], ...Object.keys(GENRES).map((key) => [key, genreName(key)])]
+      .map(([key, name]) => `<button class="tab" role="tab" data-genre="${key}" aria-selected="${key === selected}">${name}</button>`)
+      .join("");
+  };
+  renderTabs();
 
   const shelf = $("#shelf");
   shelf.innerHTML = CATALOG.map((b) => `
     <article class="card" data-id="${b.id}">
-      <button class="cover-img" data-book="${b.id}" aria-label="Quick view: ${b.title}">
+      <button class="cover-img" data-book="${b.id}">
         <img src="${coverSrc(b.id)}" alt="" loading="lazy" width="168" height="252" />
       </button>
-      <h3>${b.title}</h3>
-      <p class="card__author">${b.author}</p>
+      <h3 lang="en">${b.title}</h3>
+      <p class="card__author" lang="en">${b.author}</p>
       <p class="book__rating">${ratingHTML(b)}</p>
       <div class="card__row">
         <p class="card__price">${money(b.price)}</p>
-        <button class="card__add" data-add="${b.id}" aria-label="Add ${b.title} to cart">
+        <button class="card__add" data-add="${b.id}">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
         </button>
       </div>
     </article>`).join("");
   const cards = $$(".card", shelf);
+  // Cards are created once (Flip tracks them); only their labels change with the language
+  const labelCards = () => cards.forEach((card) => {
+    const b = byId[card.dataset.id];
+    $(".cover-img", card).setAttribute("aria-label", t("quickView", { title: b.title }));
+    $(".card__add", card).setAttribute("aria-label", t("addAria", { title: b.title }));
+  });
+  labelCards();
 
   /* ==========================================================
      Trending carousel
@@ -176,13 +202,16 @@
     const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
     return card ? card.offsetWidth + gap : track.clientWidth;
   };
+  // In RTL the track starts at the right edge and scrollLeft runs 0 → negative
+  const dirSign = () => (L.rtl ? -1 : 1);
   const updateArrows = () => {
     const max = track.scrollWidth - track.clientWidth;
-    prevBtn.disabled = track.scrollLeft <= 1;
-    nextBtn.disabled = track.scrollLeft >= max - 1;
+    const pos = Math.abs(track.scrollLeft);
+    prevBtn.disabled = pos <= 1;
+    nextBtn.disabled = pos >= max - 1;
   };
-  prevBtn.addEventListener("click", () => track.scrollBy({ left: -step() }));
-  nextBtn.addEventListener("click", () => track.scrollBy({ left: step() }));
+  prevBtn.addEventListener("click", () => track.scrollBy({ left: -step() * dirSign() }));
+  nextBtn.addEventListener("click", () => track.scrollBy({ left: step() * dirSign() }));
   track.addEventListener("scroll", updateArrows, { passive: true });
   track.addEventListener("keydown", (e) => {
     if (e.target !== track) return;
@@ -229,11 +258,11 @@
       card.hidden = !match || (!expanded && matches > SHELF_PREVIEW);
     });
 
-    browseCount.textContent = `${matches} ${matches === 1 ? "book" : "books"}`;
+    browseCount.textContent = matches === 1 ? t("bookCountOne") : t("bookCount", { n: matches });
     shelfMore.hidden = expanded || matches <= SHELF_PREVIEW;
-    showAllBtn.textContent = `Show all ${matches} books`;
+    showAllBtn.textContent = t("showAll", { n: matches });
     shelfEmpty.hidden = matches > 0;
-    $("#emptyQuery").textContent = query || (genre !== "all" ? GENRES[genre] : format);
+    $("#emptyQuery").textContent = query || (genre !== "all" ? genreName(genre) : L.format(format));
 
     if (state) {
       Flip.from(state, {
@@ -269,7 +298,8 @@
     if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
     const all = $$(".tab", tabs);
     const i = all.indexOf(document.activeElement);
-    const next = all[(i + (e.key === "ArrowRight" ? 1 : -1) + all.length) % all.length];
+    const forward = (e.key === "ArrowRight") !== L.rtl; // arrows follow reading direction
+    const next = all[(i + (forward ? 1 : -1) + all.length) % all.length];
     next.focus();
     setGenre(next.dataset.genre);
   });
@@ -322,7 +352,7 @@
 
     cartCount.textContent = qty;
     cartCount.hidden = qty === 0;
-    cartBtn.setAttribute("aria-label", qty ? `Open cart, ${qty} ${qty === 1 ? "item" : "items"}` : "Open cart");
+    cartBtn.setAttribute("aria-label", !qty ? t("openCart") : qty === 1 ? t("openCartOne") : t("openCartN", { n: qty }));
 
     cartItems.innerHTML = ids.map((id) => {
       const b = byId[id];
@@ -330,17 +360,17 @@
         <li class="line" data-id="${id}">
           <img src="${coverSrc(id)}" alt="" />
           <div>
-            <h3>${b.title}</h3>
-            <p class="line__author">${b.author}</p>
+            <h3 lang="en">${b.title}</h3>
+            <p class="line__author" lang="en">${b.author}</p>
             <p class="line__price">${money(b.price * cart[id])}</p>
           </div>
           <div class="line__side">
-            <div class="qty" role="group" aria-label="Quantity for ${b.title}">
-              <button data-qty="-1" aria-label="Decrease quantity">−</button>
+            <div class="qty" role="group" aria-label="${t("qtyFor", { title: b.title })}">
+              <button data-qty="-1" aria-label="${t("qtyDown")}">−</button>
               <output aria-live="polite">${cart[id]}</output>
-              <button data-qty="1" aria-label="Increase quantity">+</button>
+              <button data-qty="1" aria-label="${t("qtyUp")}">+</button>
             </div>
-            <button class="line__remove" data-remove>Remove</button>
+            <button class="line__remove" data-remove>${t("remove")}</button>
           </div>
         </li>`;
     }).join("");
@@ -351,9 +381,7 @@
     $("#cartSubtotal").textContent = money(total);
 
     const left = FREE_SHIPPING - total;
-    $("#shipMsg").innerHTML = left > 0
-      ? `You're <b>${money(left)}</b> away from free shipping.`
-      : `You've unlocked <b>free shipping</b>.`;
+    $("#shipMsg").innerHTML = left > 0 ? t("shipAway", { amount: money(left) }) : t("shipFree");
     $("#shipBar").classList.toggle("is-free", left <= 0);
     $("#shipFill").style.transform = `scaleX(${Math.min(total / FREE_SHIPPING, 1)})`;
 
@@ -398,17 +426,17 @@
 
     if (button) {
       button.classList.add("is-added");
-      if (button.classList.contains("btn--cart")) button.textContent = "Added ✓";
+      if (button.classList.contains("btn--cart")) button.textContent = t("added");
       setTimeout(() => {
         button.classList.remove("is-added");
-        if (button.classList.contains("btn--cart")) button.textContent = "Add To Cart";
+        if (button.classList.contains("btn--cart")) button.textContent = t("addCart");
       }, 1400);
     }
 
     // State updates immediately; the flight is decoration and only times the badge bump
     renderCart();
     flyToCart(sourceImg).then(bumpBadge);
-    showToast(`“${b.title}” added to your cart`);
+    showToast(t("toastAdded", { title: b.title }));
   };
 
   // Delegated: any [data-add] button anywhere on the page
@@ -430,7 +458,7 @@
       if (cart[id] <= 0) delete cart[id];
     } else if (e.target.closest("[data-remove]")) {
       delete cart[id];
-      showToast(`Removed “${byId[id].title}”`);
+      showToast(t("toastRemoved", { title: byId[id].title }));
     } else return;
     renderCart();
     // keep focus inside the drawer after re-render
@@ -455,7 +483,7 @@
   scrim.addEventListener("click", () => setDrawer(false));
   $("#cartBrowse").addEventListener("click", () => setDrawer(false));
   $("#checkoutBtn").addEventListener("click", () =>
-    showToast("Checkout isn't connected yet — your cart is saved on this device."));
+    showToast(t("toastCheckout")));
 
   // Keep Tab inside the open drawer
   drawer.addEventListener("keydown", (e) => {
@@ -473,20 +501,22 @@
   const qvImg = $("#qvImg");
   const qvAdd = $("#qvAdd");
 
+  let qvId = null;
   const openQuickView = (id) => {
     const b = byId[id];
     if (!b) return;
+    qvId = id;
     qvImg.src = coverSrc(id);
     qvImg.alt = `${b.title} cover`;
-    $("#qvGenre").textContent = GENRES[b.genre];
+    $("#qvGenre").textContent = genreName(b.genre);
     $("#qvTitle").textContent = b.title;
-    $("#qvAuthor").textContent = `by ${b.author}`;
+    $("#qvAuthor").textContent = t("by", { author: b.author });
     $("#qvRating").innerHTML = ratingHTML(b);
-    $("#qvBlurb").textContent = b.blurb;
-    $("#qvMeta").textContent = `${b.format}, ${b.pages} pages, published ${b.year}`;
+    $("#qvBlurb").textContent = L.blurb(b);
+    $("#qvMeta").textContent = t("meta", { format: L.format(b.format), pages: b.pages, year: b.year });
     $("#qvPrice").textContent = money(b.price);
     qvAdd.dataset.id = id;
-    qv.showModal();
+    if (!qv.open) qv.showModal();
   };
 
   document.addEventListener("click", (e) => {
@@ -500,49 +530,55 @@
   /* ==========================================================
      Community: join clubs, RSVP to events
      ========================================================== */
+  // The Book Clubs section is commented out in index.html, so no .btn--join exists until it's restored.
+  // State is keyed by stable ids, not the visible names, so it survives a language switch.
+  const communitySyncs = [];
   const joined = new Set(store.get("bookish-joined", []));
 
   $$(".btn--join").forEach((btn) => {
     const club = btn.closest(".club");
-    const name = $("h3", club).textContent;
+    const key = club.dataset.club || $("h3", club).textContent;
     const count = $("[data-members]", club);
     const base = Number(count.textContent);
     const sync = () => {
-      const on = joined.has(name);
+      const on = joined.has(key);
       btn.setAttribute("aria-pressed", on);
-      btn.lastChild.textContent = on ? "Joined" : "Join club";
+      btn.lastChild.textContent = t(on ? "joined" : "join");
       count.textContent = base + (on ? 1 : 0);
     };
     btn.textContent = "";
     btn.append(document.createTextNode(""));
     sync();
+    communitySyncs.push(sync);
     btn.addEventListener("click", () => {
-      joined.has(name) ? joined.delete(name) : joined.add(name);
+      joined.has(key) ? joined.delete(key) : joined.add(key);
       store.set("bookish-joined", [...joined]);
       sync();
-      if (joined.has(name)) showToast(`You've joined the ${name}. See you there!`);
+      if (joined.has(key)) showToast(t("toastJoined", { name: $("h3", club).textContent }));
     });
   });
 
   const going = new Set(store.get("bookish-rsvp", []));
   $$(".btn--rsvp").forEach((btn) => {
     const ev = btn.closest(".event");
-    const name = $("h3", ev).textContent;
-    const date = new Date(`${$("time", ev).getAttribute("datetime")}T12:00:00`)
-      .toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
+    const key = $("time", ev).getAttribute("datetime");
     const sync = () => {
-      const on = going.has(name);
+      const on = going.has(key);
       btn.setAttribute("aria-pressed", on);
-      btn.lastChild.textContent = on ? "Going" : "RSVP";
+      btn.lastChild.textContent = t(on ? "going" : "rsvp");
     };
     btn.textContent = "";
     btn.append(document.createTextNode(""));
     sync();
+    communitySyncs.push(sync);
     btn.addEventListener("click", () => {
-      going.has(name) ? going.delete(name) : going.add(name);
+      going.has(key) ? going.delete(key) : going.add(key);
       store.set("bookish-rsvp", [...going]);
       sync();
-      showToast(going.has(name) ? `You're going to ${name} on ${date}.` : `RSVP cancelled for ${name}.`);
+      const name = $("h3", ev).textContent;
+      const date = new Date(`${key}T12:00:00`)
+        .toLocaleDateString(L.locale(), { weekday: L.rtl ? "long" : "short", month: L.rtl ? "long" : "short", day: "numeric" });
+      showToast(going.has(key) ? t("toastGoing", { name, date }) : t("toastCancel", { name }));
     });
   });
 
@@ -603,7 +639,25 @@
   $("#newsletterForm").addEventListener("submit", (e) => {
     e.preventDefault();
     e.target.reset();
-    showToast("Subscribed. Look out for Thursday's email.");
+    showToast(t("toastSubscribed"));
+  });
+
+  /* ==========================================================
+     Language switch (English ⇄ Arabic): re-render everything script-built
+     ========================================================== */
+  L.onChange(() => {
+    renderTrending();
+    renderCategories();
+    renderTabs(genre);
+    labelCards();
+    applyFilters({ animate: false });
+    renderCart();
+    communitySyncs.forEach((sync) => sync());
+    setMenu(nav.classList.contains("is-open"));
+    if (qv.open && qvId) openQuickView(qvId);
+    $("#year").textContent = new Date().getFullYear();
+    track.scrollLeft = 0;
+    updateArrows();
   });
 
   applyFilters({ animate: false });
